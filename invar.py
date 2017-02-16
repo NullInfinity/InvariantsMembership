@@ -6,11 +6,17 @@ from tkinter import ttk
 
 APP_NAME = 'Invariants Membership System'
 
-def checkmember():
-    pass
+
+def checkmember(sv, *args):
+    print(sv)
+    print(type(sv))
+    print(args)
+    for arg in args:
+        print(type(arg))
+
 
 class TextBox:
-    def __init__(self, name, row):
+    def __init__(self, name, row, callback=None):
         # label
         self.label = ttk.Label(frame, text=name+': ')
         self.label.grid(column=1, row=row, sticky=W)
@@ -19,6 +25,10 @@ class TextBox:
         self.value = StringVar()
         self.widget = ttk.Entry(frame, width=7, textvariable=self.value)
         self.widget.grid(column=2, row=row, sticky=(W, E))
+
+        # text entered callback
+        if callback:
+            self.value.trace('w', callback=callback)
 
 # make app
 root = Tk()
@@ -29,7 +39,7 @@ frame.grid(column=0, row=0, sticky=(N, W, E, S))
 frame.columnconfigure(0, weight=1)
 frame.rowconfigure(0, weight=1)
 
-barcode = TextBox('Barcode', row=1)
+barcode = TextBox('Barcode', row=1, callback=checkmember)
 firstname = TextBox('First Name', row=2)
 lastname = TextBox('Last Name', row=3)
 
@@ -41,7 +51,9 @@ button.grid(column=0, row=5, sticky=(W, E))
 
 for child in frame.winfo_children():
     child.grid_configure(padx=5, pady=5)
+
 barcode.widget.focus()
-root.bind('<Return>', checkmember())
+
+#root.bind('<Return>', checkmember())
 
 root.mainloop()
