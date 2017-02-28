@@ -6,7 +6,7 @@ from tkinter import *
 from tkinter import ttk
 
 APP_NAME = 'Invariants Membership'
-BARCODE_LENGTH = 7
+BARCODE_LENGTH = 8 # 7 digits plus terminating character
 DBFILE = 'development.sqlite3'
 
 TEXT_ACCEPTED = 'MEMBER'
@@ -62,7 +62,7 @@ def set_textboxes(values):
     lastname.set(values[2])
 
 def checkmember():
-    bc = barcode.content()
+    bc = barcode.content()[:-1]
     fn = firstname.content()
     ln = lastname.content()
 
