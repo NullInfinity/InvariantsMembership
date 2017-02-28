@@ -75,10 +75,9 @@ def checkmember():
     except BadInputException:
         return
 
-    set_textboxes(out)
-    #root.after(1000, set_textboxes(None))
+    result_label.config(text=' '.join(out[1:]))
+    set_textboxes(None)
 
-    result_label.config(text=TEXT_ACCEPTED)
     add_button.config(state=DISABLED)
 
 def addmember():
@@ -120,7 +119,7 @@ firstname = TextBox('First Name', row=2)
 lastname = TextBox('Last Name', row=3)
 
 result_var = StringVar()
-result_label = ttk.Label(text='test')
+result_label = ttk.Label(text='')
 result_label.grid(column=0, row=4, columnspan=4, sticky=(W, E))
 
 check_button = ttk.Button(text=CHECK_BUTTON_TEXT, command=checkmember)
